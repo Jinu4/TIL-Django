@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}New Post{% endblock %}
+{% block content %} 
+<form method="POST" action=".">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!-- component from tailwind -->
+    <div>
+        <button type="submit" class="block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded m-3">Submit</button>
+    </div>
+</form>
+
+
+{% endblock %}
