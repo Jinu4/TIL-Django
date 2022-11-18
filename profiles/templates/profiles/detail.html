@@ -17,7 +17,20 @@
          <p>
            Front end Developer, avid reader. Love to take a long walk, swim
          </p>
-       </div>
+         <div class="ml-auto">
+          {% if request.user.is_authenticated %}
+            {% if request.user != user %}
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 js-follow" 
+                data-username="{{ user.username }}" data-action="follow" data-url="{% url 'profiles:follow' user.username %}" 
+                type="button">
+                <span class="js-text">Follow</span>
+              </button>
+            {% endif %}
+          {% else %}
+            <p>Please Sign in to follow</p>
+          {% endif %}
+         </div>
+        </div>
        <hr class="mt-8">
        <div class="flex p-4">
          <div class="w-1/2 text-center">

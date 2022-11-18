@@ -31,10 +31,11 @@ $.ajaxSetup({
 
 $(document).on("click",".js-toggle-modal",function(e){
     e.preventDefault()
+    $('.js-post-text').val('')
     $(".js-modal").toggleClass("hidden")
 })
 
-$(document).on('click','.js-submit',(e)=>{
+$(document).on('click','.js-submit',function(e){
     e.preventDefault()
     const text = $('.js-post-text').val().trim()
     const $btn = $(this)
@@ -60,6 +61,33 @@ $(document).on('click','.js-submit',(e)=>{
         error: (error) => {
           console.warn(error)
           $btn.prop('disabled',false).text('Error')  
+        }
+    });
+})
+
+.on('click','.js-follow',function(e) {
+    e.preventDefault()
+    const action = $(this).attr('data-action')
+    
+    $.ajax({
+        type: 'POST',
+        url: $(this).data('url'),
+        data: {
+            action:action,
+            username:$(this).data('username')
+        },
+        success: (data) => {
+            $('.js-text').text(data.wording)
+            if(action=='follow'){
+                //Change wording to unfollow
+                $(this).attr('data-action','unfollow')
+            }else{
+                //The opposite
+                $(this).attr('data-action','follow')
+            }
+        },
+        error: (error) => {
+            console.warn(error) 
         }
     });
 })
