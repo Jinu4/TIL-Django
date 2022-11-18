@@ -21,9 +21,16 @@
           {% if request.user.is_authenticated %}
             {% if request.user != user %}
               <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 js-follow" 
-                data-username="{{ user.username }}" data-action="follow" data-url="{% url 'profiles:follow' user.username %}" 
+                data-username="{{ user.username }}" data-action="{% if you_follow %}un{% endif %}follow" 
+                data-url="{% url 'profiles:follow' user.username %}" 
                 type="button">
-                <span class="js-text">Follow</span>
+                <span class="js-text">
+                  {% if you_follow %}
+                    Unfollow
+                  {% else %}
+                    Follow
+                  {% endif %}
+                </span>
               </button>
             {% endif %}
           {% else %}
